@@ -1,0 +1,25 @@
+# パッケージインストール-----------------------------------------------------------------------------------------
+- name: Install common dev tool packages
+  apt:
+    name:
+      - wget
+      - tree
+      - git
+      - sudo
+      - net-tools
+      - htop
+      - bash-completion
+      - vim
+      - curl
+      - zip
+      - unzip
+      - net-tools
+      - mailutils
+      - iproute2
+      - iputils-ping
+      - nmap
+      - telnet
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  tags: dev_tool_install
