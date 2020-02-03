@@ -68,8 +68,8 @@
 
     - name: set .gitignore_global
       template:
-        src: home/{{ user_name }}/.gitignore_global.j2
-        dest: "/home/.gitignore_global"
+        src: home/.gitignore_global.j2
+        dest: "/home/{{ user_name }}/.gitignore_global"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
 
