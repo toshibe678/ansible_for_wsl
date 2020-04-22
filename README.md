@@ -12,7 +12,7 @@ sudo apt install -y ansible git
 git clone https://github.com/toshi-click/ansible_for_wsl.git
 cd ansible_for_wsl
 # user_nameおよびuser_emailは自分のアドレスに変更すること。
-ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click", "dns_servers":['172.16.177.100', '8.8.8.8'] }' --ask-become-pass all.yml
+ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click", "dns_servers":['8.8.8.8', '1.1.1.1'] }' --ask-become-pass all.yml
 ```
 
 # 秘密鍵は自分で置いてね
