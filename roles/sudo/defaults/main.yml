@@ -1,0 +1,3 @@
+---
+sudo_user_name: "hoge"
+sudo_nopassword: "yes"

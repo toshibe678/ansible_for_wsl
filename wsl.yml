@@ -1,0 +1,76 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  roles:
+    - { role: "resolv"}
+    - { role: "auto_package_upgrade"}
+    - { role: "locale"}
+    - { role: "timezone"}
+    - { role: "dev_tool_install"}
+#    - { role: "sshd"}
+    - { role: "ansible"}
+    - { role: "postfix"}
+  tasks:
+    - name: "create {{ user_name }} .ssh/ dicrectory"
+      file:
+        path: "/home/{{ user_name }}/.ssh"
+        state: directory
+        mode: 0700
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+
+    - name: "/etc/wsl.conf"
+      template:
+        src: etc/wsl.conf
+        dest: "/etc/wsl.conf"
+        owner: root
+        group: root
+        mode: 0644
+    #######################################################################################################################
+    # ホームディレクトリ関連
+    #######################################################################################################################
+    - name: set .bashrc
+      template:
+        src: home/.bashrc
+        dest: "/home/{{ user_name }}/.bashrc"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+
+    - name: set .bash_alias
+      template:
+        src: home/.bash_alias.j2
+        dest: "/home/{{ user_name }}/.bash_alias"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+
+    - name: set .profile
+      template:
+        src: home/.profile
+        dest: "/home/{{ user_name }}/.profile"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+
+    - name: set .bash_profile
+      template:
+        src: home/.bash_profile
+        dest: "/home/{{ user_name }}/.bash_profile"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+
+    - name: set .gitconfig.j2
+      template:
+        src: home/win_.gitconfig.j2
+        dest: "/home/{{ user_name }}/.gitconfig"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+
+    - name: set .gitignore_global
+      template:
+        src: home/.gitignore_global.j2
+        dest: "/home/{{ user_name }}/.gitignore_global"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+
+    - name: source bash_profile
+      shell: bash -lc "source /home/{{ user_name }}/.bash_profile"

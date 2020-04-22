@@ -1,0 +1,7 @@
+- name: "/etc/user_sudo"
+  template:
+    src: etc/sudoers.d/user_sudo
+    dest: "/etc/sudoers.d/user_sudo"
+    owner: root
+    group: root
+    mode: 0440

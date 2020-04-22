@@ -1,0 +1,44 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  tasks:
+#######################################################################################################################
+# PHP
+#######################################################################################################################
+    - name: wsl Python require package install
+      apt:
+        name: "{{ item }}"
+        update_cache: yes
+        cache_valid_time: 3600
+      with_items:
+        - build-essential
+        - libffi-dev
+        - libssl-dev
+        - zlib1g-dev
+        - liblzma-dev
+        - libbz2-dev
+        - libreadline-dev
+        - libsqlite3-dev
+
+    - name: git clone pyenv
+      git:
+        version: master
+        repo: https://github.com/pyenv/pyenv.git
+        dest: "/home/{{ user_name }}/.pyenv"
+        accept_hostkey: yes
+      become: yes
+      become_user: "{{ user_name }}"
+
+    - name: source bash_profile
+      shell: 'bash -lc "source /home/{{ user_name }}/.bash_profile"'
+
+    - name: 'pyenv Install'
+      shell: bash -lc "pyenv install 3.8.1 -s"
+      become: yes
+      become_user: "{{ user_name }}"
+
+    - name: 'pyenv global version set'
+      shell: bash -lc "pyenv global 3.8.1"
+      become: yes
+      become_user: "{{ user_name }}"

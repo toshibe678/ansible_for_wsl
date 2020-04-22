@@ -1,0 +1,7 @@
+- name: put /etc/resolv.conf
+  template:
+    src: etc/resolv.conf
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0644

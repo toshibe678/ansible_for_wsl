@@ -1,0 +1,21 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  tasks:
+#######################################################################################################################
+# PHP
+#######################################################################################################################
+    - name: wsl PHP install
+      apt:
+        name: "{{ item }}"
+        update_cache: yes
+        cache_valid_time: 3600
+      with_items:
+        - php
+        - php-mbstring
+        - php-dom
+        - php-xml
+        - php-zip
+        - php-curl
+        - php-xdebug

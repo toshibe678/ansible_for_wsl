@@ -1,0 +1,70 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  tasks:
+    #######################################################################################################################
+    # Ruby
+    #######################################################################################################################
+    - name: git clone rbenv
+      git:
+        version: master
+        repo: https://github.com/sstephenson/rbenv.git
+        dest: "/home/{{ user_name }}/.rbenv"
+        accept_hostkey: yes
+      become: yes
+      become_user: "{{ user_name }}"
+
+    - name: git clone ruby-build
+      git:
+        version: master
+        repo: https://github.com/sstephenson/ruby-build.git
+        dest: "/home/{{ user_name }}/.rbenv/plugins/ruby-build"
+        accept_hostkey: yes
+      become: yes
+      become_user: "{{ user_name }}"
+
+    - name: git clone rbenv-gemset
+      git:
+        version: master
+        repo: https://github.com/jamis/rbenv-gemset.git
+        dest: "/home/{{ user_name }}/.rbenv/plugins/rbenv-gemset"
+        accept_hostkey: yes
+      become: yes
+      become_user: "{{ user_name }}"
+
+    - name: wsl Ruby require package install
+      apt:
+        name:
+          - autoconf
+          - bison
+          - build-essential
+          - libssl-dev
+          - libyaml-dev
+          - libreadline6-dev
+          - zlib1g-dev
+          - libncurses5-dev
+          - libffi-dev
+          - libgdbm5
+          - libgdbm-dev
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: source bash_profile
+      shell: 'bash -lc "source /home/{{ user_name }}/.bash_profile"'
+
+    - name: 'ruby Install'
+      shell: bash -lc "rbenv install --skip-existing 2.7.0"
+      become: yes
+      become_user: "{{ user_name }}"
+
+    - name: 'global set'
+      shell: bash -lc "rbenv global 2.7.0"
+      become: yes
+      become_user: "{{ user_name }}"
+
+    # gemインストール
+    - name: 'gem install for bundler And rake'
+      shell: bash -lc "gem install bundler rake"
+      become: yes
+      become_user: "{{ user_name }}"

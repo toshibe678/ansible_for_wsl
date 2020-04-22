@@ -3,7 +3,7 @@
     name: openssh-server
     update_cache: yes
     cache_valid_time: 3600
-  tags: secure
+  tags: ssh
 
 # sshd
 - name: sshd is configured
@@ -16,4 +16,4 @@
     owner: root
     group: root
     mode: 0644
-  tags: secure
+  tags: ssh
