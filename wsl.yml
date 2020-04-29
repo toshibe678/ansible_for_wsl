@@ -71,6 +71,3 @@
         dest: "/home/{{ user_name }}/.gitignore_global"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
-
-    - name: source bash_profile
-      shell: bash -lc "source /home/{{ user_name }}/.bash_profile"

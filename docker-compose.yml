@@ -1,0 +1,69 @@
+# docker-composeバージョンの宣言
+# https://docs.docker.com/compose/compose-file/
+version: '3.7'
+x-logging:
+  &default-logging
+  options:
+    max-size: '12m'
+    max-file: '5'
+  driver: json-file
+
+services:
+  proxy:
+    restart: always
+    container_name: proxy
+    image: toshiclick/proxy:latest
+    privileged: true
+    environment:
+      ENABLE_IPV6: "false"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /app/certs:/etc/nginx/certs
+      - htpasswd:/etc/nginx/htpasswd
+      - vhost:/etc/nginx/vhost.d:ro
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    logging: *default-logging
+
+  # Let's Encrypt取得・更新用のコンテナ
+#  letsencrypt-nginx:
+#    container_name: letsencrypt-nginx
+#    restart: always
+#    image: jrcs/letsencrypt-nginx-proxy-companion
+#    privileged: true
+#    depends_on:
+#      - "proxy"
+#    volumes:
+#      - /app/certs:/etc/nginx/certs
+#      - htpasswd:/etc/nginx/htpasswd
+#      - vhost:/etc/nginx/vhost.d
+#      - html:/usr/share/nginx/html
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
+#    logging: *default-logging
+
+  postfix:
+    container_name: postfix
+    restart: always
+    image: toshiclick/postfix:latest
+    environment:
+      DOMAIN_NAME: wsl.test
+      HOST_NAME: wsl.test
+    ports:
+      - "25"
+      - "110"
+    logging: *default-logging
+
+volumes:
+  htpasswd:
+  vhost:
+  html:
+
+networks:
+  docker_bridge:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.22.0.0/16"
