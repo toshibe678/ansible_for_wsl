@@ -1,7 +1,0 @@
--
-- name: state set postfix
-  systemd:
-    name: postfix
-    state: restarted
-    enabled: yes
-    daemon_reload: yes

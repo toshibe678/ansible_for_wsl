@@ -13,6 +13,16 @@
   scm: git
   version: "master"
 
+- src: https://github.com/toshi-click/roles_locale.git
+  name: locale
+  scm: git
+  version: "master"
+
+- src: https://github.com/toshi-click/roles_sudo.git
+  name: sudo
+  scm: git
+  version: "master"
+
 - src: https://github.com/toshi-click/roles_wsl_sshd.git
   name: sshd
   scm: git

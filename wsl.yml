@@ -6,11 +6,12 @@
     - { role: "resolv"}
     - { role: "auto_package_upgrade"}
     - { role: "locale"}
-    # - { role: "timezone"}
+    - { role: "timezone"}
     - { role: "dev_tool_install"}
     - { role: "sshd"}
     - { role: "ansible"}
     - { role: "postfix"}
+    - { role: "sudo"}
   tasks:
     - name: "create {{ user_name }} .ssh/ dicrectory"
       file:
