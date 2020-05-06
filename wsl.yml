@@ -8,7 +8,7 @@
     - { role: "locale"}
     - { role: "timezone"}
     - { role: "dev_tool_install"}
-#    - { role: "sshd"}
+    - { role: "sshd"}
     - { role: "ansible"}
     - { role: "postfix"}
   tasks:
