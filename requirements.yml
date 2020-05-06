@@ -1,3 +1,18 @@
+- src: https://github.com/toshi-click/roles_ansible.git
+  name: ansible
+  scm: git
+  version: "master"
+
+- src: https://github.com/toshi-click/roles_auto_package_upgrade.git
+  name: auto_package_upgrade
+  scm: git
+  version: "master"
+
+- src: https://github.com/toshi-click/roles_dev_tool_install.git
+  name: dev_tool_install
+  scm: git
+  version: "master"
+
 - src: https://github.com/toshi-click/roles_wsl_sshd.git
   name: sshd
   scm: git
