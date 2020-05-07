@@ -10,9 +10,15 @@
     - { role: "dev_tool_install"}
     - { role: "sshd"}
     - { role: "ansible"}
-    - { role: "postfix"}
     - { role: "sudo"}
   tasks:
+    - name: Install postfix packages
+      apt:
+        pkg: postfix
+        state: present
+        update_cache: yes
+        cache_valid_time: 3600
+
     - name: "create {{ user_name }} .ssh/ dicrectory"
       file:
         path: "/home/{{ user_name }}/.ssh"
@@ -80,3 +86,11 @@
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
         mode: 0600
+
+    - name: "put /home/{{ user_name }}/service_start.sh"
+      template:
+        src: home/service_start.sh
+        dest: "/home/{{ user_name }}/service_start.sh"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: 0755
