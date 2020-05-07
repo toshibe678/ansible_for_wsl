@@ -1,3 +1,1 @@
 ---
-sudo_user_name: "{{ user_name }}"
-sudo_nopassword: "yes"
