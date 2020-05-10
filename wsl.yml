@@ -3,14 +3,16 @@
   become: true
   become_user: root
   roles:
-    - { role: "resolv"}
-    - { role: "auto_package_upgrade"}
-    - { role: "locale"}
-    - { role: "timezone"}
-    - { role: "dev_tool_install"}
-    - { role: "sshd"}
-    - { role: "ansible"}
-    - { role: "sudo"}
+    - { role: "resolv", tags: resolv}
+    - { role: "ansible", tags: ansible}
+    - { role: "auto_package_upgrade", tags: auto_package_upgrade}
+    - { role: "dev_tool_install", tags: dev_tool}
+    - { role: "google_cloud_sdk", tags: gcloud}
+    - { role: "locale", tags: locale}
+    - { role: "sudo", tags: sudo}
+    - { role: "terraform", tags: terraform}
+    - { role: "timezone", tags: timezone}
+    - { role: "sshd", tags: sshd}
   tasks:
     - name: Install postfix packages
       apt:
