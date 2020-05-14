@@ -1,0 +1,33 @@
+[user]
+    name = {{ user_name }}
+    email = {{ user_email }}
+[core]
+    # 改行コードをLF限定にする
+    autocrlf = input
+    # .gitignore_globalを有効化
+    excludesfile = C:\\Users\\{{ user_name }}\\.gitignore_global
+    # パーミッションの変更を無視する
+    filemode = false
+    # ファイル名の大文字・小文字の変更を検知する。
+    ignorecase = false
+    # 日本語ファイル名をエスケープせずに表示
+    quotepath = false
+    # 濁点つきのディレクトリ・ファイルが分けて表示されてしまう UTF8-MAC 問題の解決方法
+    precomposeunicode = true
+    # エディタとマージツールををVSCode指定
+    editor = code --wait
+    merge.tool = code --wait "$MERGED"
+[difftool "sourcetree"]
+    cmd = '' \"$LOCAL\" \"$REMOTE\"
+[mergetool "sourcetree"]
+    cmd = "'' "
+    trustExitCode = true
+[push]
+    # カレントブランチと同名のリモートブランチが存在する場合のみ、カレントブランチのpushが行われる。
+    default = simple
+[color]
+    # カラー設定
+    ui = true
+    diff = auto
+    status = auto
+    branch = auto

@@ -1,3 +1,7 @@
 ---
 sudo_user_name: "{{ user_name }}"
 sudo_nopassword: "yes"
+
+wsl_mount_dir: "/mnt/"
+
+win_git_key_path: "C:\git\key\git_key\rsa_4096"
