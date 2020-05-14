@@ -26,3 +26,19 @@ ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email"
 ```bash
 gcloud init
 ```
+
+### terraform
+```bash
+cd 
+terraform init
+cd ~/.terraform.d
+mkdir plugins
+```
+Check the [Github releases](https://github.com/dmacvicar/terraform-provider-libvirt/releases) page for available downloads.
+
+```bash
+cd /usr/local/src
+sudo wget https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/v0.6.2/terraform-provider-libvirt-0.6.2+git.1585292411.8cbe9ad0.Ubuntu_18.04.amd64.tar.gz
+sudo tar xvf terraform-provider-libvirt-0.6.2+git.1585292411.8cbe9ad0.Ubuntu_18.04.amd64.tar.gz
+cp terraform-provider-libvirt ~/.terraform.d/plugins/
+```
