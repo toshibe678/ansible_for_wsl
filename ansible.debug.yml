@@ -1,0 +1,15 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: "Display all variables/facts known for a host"
+      debug: var=hostvars[inventory_hostname]
+
+    - name: "dump variables vars"
+      debug: var=result
+
+    - name: "dig +noall +answer @{{ inventory_hostname }} {{ inventory_hostname }} A"
+      shell: "dig +noall +answer @8.8.8.8 google.com A"
+      changed_when: true
+      register: result
+#      failed_when: inventory_hostname not in result.stdout
+      failed_when: 'google.com' not in result.stdout
