@@ -69,7 +69,7 @@
 
     - name: set .gitconfig.j2
       template:
-        src: home/win_.gitconfig.j2
+        src: home/.gitconfig.j2
         dest: "/home/{{ user_name }}/.gitconfig"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
@@ -81,10 +81,18 @@
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
 
-    - name: authorized_keys
+    - name: "set {{ user_name }} user authorized_keys"
       template:
         src: "authorized_keys.j2"
         dest: "/home/{{ user_name }}/.ssh/authorized_keys"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: 0600
+
+    - name: "set {{ user_name }} user .ssh/config"
+      template:
+        src: "home/.ssh/config.j2"
+        dest: "/home/{{ user_name }}/.ssh/config"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
         mode: 0600
