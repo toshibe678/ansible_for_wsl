@@ -3,7 +3,7 @@
   become: true
   become_user: root
   roles:
-    - { role: "resolv", tags: resolv}
+#    - { role: "resolv", tags: resolv}
     - { role: "ansible", tags: ansible}
     - { role: "auto_package_upgrade", tags: auto_package_upgrade}
     - { role: "dev_tool_install", tags: dev_tool}
