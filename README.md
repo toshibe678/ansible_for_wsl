@@ -14,6 +14,7 @@ cd ansible_for_wsl
 ansible-galaxy install -r requirements.yml -p roles --force
 # user_nameおよびuser_emailは自分のアドレスに変更すること。
 ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click", "dns_servers":['172.16.177.100', '8.8.8.8'] }' --ask-become-pass all.yml
+ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click" }' --ask-become-pass all.yml
 ```
 
 # 秘密鍵は自分で置いてね
