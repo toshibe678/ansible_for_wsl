@@ -41,11 +41,11 @@
           - build-essential
           - libssl-dev
           - libyaml-dev
-          - libreadline6-dev
+          # - libreadline6-dev
           - zlib1g-dev
-          - libncurses5-dev
+          # - libncurses5-dev
           - libffi-dev
-          - libgdbm5
+          # - libgdbm5
           - libgdbm-dev
         update_cache: yes
         cache_valid_time: 3600

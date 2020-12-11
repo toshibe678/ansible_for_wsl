@@ -4,7 +4,7 @@
   become_user: root
   roles:
 #    - { role: "resolv", tags: resolv}
-    - { role: "ansible", tags: ansible}
+    # - { role: "ansible", tags: ansible}
     - { role: "auto_package_upgrade", tags: auto_package_upgrade}
     - { role: "dev_tool_install", tags: dev_tool}
     - { role: "google_cloud_sdk", tags: gcloud}
