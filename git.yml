@@ -2,35 +2,37 @@
 - hosts: all
   become: no
   tasks:
-    - name: set .gitconfig.j2
+    - name: set wsl .gitconfig.j2
       template:
         src: home/.gitconfig.j2
         dest: "/home/{{ user_name }}/.gitconfig"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
-    - name: set .gitignore_global
+
+    - name: set wsl .gitignore_global
       template:
         src: home/.gitignore_global.j2
         dest: "/home/{{ user_name }}/.gitignore_global"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
-    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
+
+    - name: "put win {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
       template:
         src: win/.gitconfig.j2
         dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
 
-    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
+    - name: "put win {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
       template:
         src: win/.gitignore_global
         dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitignore_global"
 
     # git security
-    - name: "create {{ user_name }} .git/hooks dicrectory"
+    - name: "create win {{ user_name }} .git/hooks dicrectory"
       file:
         path: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks"
         state: directory
 
-    - name: "create {{ user_name }} .git/hooks dicrectory"
+    - name: "create wsl {{ user_name }} .git/hooks dicrectory"
       file:
         path: "/home/{{ user_name }}/.git/hooks"
         state: directory
@@ -38,22 +40,22 @@
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
 
-    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/_local-hook-exec"
+    - name: "put win {{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/_local-hook-exec"
       template:
         src: git/hooks/_local-hook-exec
         dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/_local-hook-exec"
 
-    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/_local-hook-exec"
+    - name: "put wsl /home/{{ user_name }}/.git/hooks/_local-hook-exec"
       template:
         src: git/hooks/_local-hook-exec
-        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/_local-hook-exec"
+        dest: "/home/{{ user_name }}/.git/hooks/_local-hook-exec"
 
-    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/pre-commit"
+    - name: "put win {{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/pre-commit"
       template:
         src: git/hooks/win-pre-commit
         dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/pre-commit"
 
-    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/pre-commit"
+    - name: "put wsl /home/{{ user_name }}//.git/hooks/pre-commit"
       template:
         src: git/hooks/pre-commit
-        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/pre-commit"
+        dest: "/home/{{ user_name }}/.git/hooks/pre-commit"
