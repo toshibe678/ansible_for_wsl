@@ -25,31 +25,35 @@
         dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitignore_global"
 
     # git security
-    - name: "create {{ user_name }} .git/ dicrectory"
+    - name: "create {{ user_name }} .git/hooks dicrectory"
       file:
-        path: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git"
+        path: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks"
         state: directory
 
-    - name: "create {{ user_name }} .git/ dicrectory"
+    - name: "create {{ user_name }} .git/hooks dicrectory"
       file:
-        path: "/home/{{ user_name }}/.git"
+        path: "/home/{{ user_name }}/.git/hooks"
         state: directory
         mode: 0755
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
 
-    - name: git clone secretlint win
-      git:
-        version: master
-        repo: https://github.com/secretlint/git-hooks
-        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/secretlint"
-        accept_hostkey: yes
-        force: yes
+    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/_local-hook-exec"
+      template:
+        src: git/hooks/_local-hook-exec
+        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/_local-hook-exec"
 
-    - name: git clone secretlint wsl
-      git:
-        version: master
-        repo: https://github.com/secretlint/git-hooks
-        dest: "/home/{{ user_name }}/.git/secretlint"
-        accept_hostkey: yes
-        force: yes
+    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/_local-hook-exec"
+      template:
+        src: git/hooks/_local-hook-exec
+        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/_local-hook-exec"
+
+    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/pre-commit"
+      template:
+        src: git/hooks/win-pre-commit
+        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/pre-commit"
+
+    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/pre-commit"
+      template:
+        src: git/hooks/pre-commit
+        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/pre-commit"
