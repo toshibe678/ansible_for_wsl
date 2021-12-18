@@ -49,11 +49,11 @@
       become_user: "{{ manage_user_name }}"
 
     - name: git clone secretlint wsl
-        git:
-          version: master
-          repo: https://github.com/secretlint/git-hooks
-          dest: "/home/{{ user_name }}/.git/secretlint"
-          accept_hostkey: yes
-          force: yes
-        become: yes
-        become_user: "{{ manage_user_name }}"
+      git:
+        version: master
+        repo: https://github.com/secretlint/git-hooks
+        dest: "/home/{{ user_name }}/.git/secretlint"
+        accept_hostkey: yes
+        force: yes
+      become: yes
+      become_user: "{{ manage_user_name }}"
