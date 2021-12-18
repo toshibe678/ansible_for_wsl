@@ -1,0 +1,59 @@
+---
+- hosts: all
+  become: no
+  tasks:
+    - name: set .gitconfig.j2
+      template:
+        src: home/.gitconfig.j2
+        dest: "/home/{{ user_name }}/.gitconfig"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+    - name: set .gitignore_global
+      template:
+        src: home/.gitignore_global.j2
+        dest: "/home/{{ user_name }}/.gitignore_global"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
+      template:
+        src: win/.gitconfig.j2
+        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
+
+    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
+      template:
+        src: win/.gitignore_global
+        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitignore_global"
+
+    # git security
+    - name: "create {{ user_name }} .git/ dicrectory"
+      file:
+        path: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git"
+        state: directory
+
+    - name: "create {{ user_name }} .git/ dicrectory"
+      file:
+        path: "/home/{{ user_name }}/.git"
+        state: directory
+        mode: 0755
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+
+    - name: git clone secretlint win
+      git:
+        version: master
+        repo: https://github.com/secretlint/git-hooks
+        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/secretlint"
+        accept_hostkey: yes
+        force: yes
+      become: yes
+      become_user: "{{ manage_user_name }}"
+
+    - name: git clone secretlint wsl
+        git:
+          version: master
+          repo: https://github.com/secretlint/git-hooks
+          dest: "/home/{{ user_name }}/.git/secretlint"
+          accept_hostkey: yes
+          force: yes
+        become: yes
+        become_user: "{{ manage_user_name }}"

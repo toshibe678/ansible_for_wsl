@@ -1,12 +1,10 @@
 ## WSL
 
 ### WSL(Windows Subsystem for Linux)を有効にする
-1. Powershellを管理者で起動する
-1. WSLを有効にする
-    ```
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
-    ```
-1. Microsoft StoreからUbuntuをインストールする (検索⇒Ubuntu)
+Powershellを管理者モードで起動し下記
+```
+wsl --install
+```
 
 ### アップデート/アップグレード
 ```

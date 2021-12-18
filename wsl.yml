@@ -3,14 +3,10 @@
   become: true
   become_user: root
   roles:
-#    - { role: "resolv", tags: resolv}
-    # - { role: "ansible", tags: ansible}
-#    - { role: "auto_package_upgrade", tags: auto_package_upgrade}
+    - { role: "ansible", tags: ansible}
     - { role: "dev_tool_install", tags: dev_tool}
-    - { role: "google_cloud_sdk", tags: gcloud}
     - { role: "locale", tags: locale}
     - { role: "sudo", tags: sudo}
-    - { role: "terraform", tags: terraform}
     - { role: "timezone", tags: timezone}
     - { role: "sshd", tags: sshd}
   tasks:
@@ -48,8 +44,8 @@
 
     - name: set .bash_alias
       template:
-        src: home/.bash_alias.j2
-        dest: "/home/{{ user_name }}/.bash_alias"
+        src: home/.bash_aliases.j2
+        dest: "/home/{{ user_name }}/.bash_aliases"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
 
@@ -64,20 +60,6 @@
       template:
         src: home/.bash_profile
         dest: "/home/{{ user_name }}/.bash_profile"
-        owner: "{{ user_name }}"
-        group: "{{ user_name }}"
-
-    - name: set .gitconfig.j2
-      template:
-        src: home/.gitconfig.j2
-        dest: "/home/{{ user_name }}/.gitconfig"
-        owner: "{{ user_name }}"
-        group: "{{ user_name }}"
-
-    - name: set .gitignore_global
-      template:
-        src: home/.gitignore_global.j2
-        dest: "/home/{{ user_name }}/.gitignore_global"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
 

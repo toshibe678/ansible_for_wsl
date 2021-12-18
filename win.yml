@@ -12,12 +12,4 @@
         src: win/.ssh/config
         dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.ssh/config"
 
-    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
-      template:
-        src: win/.gitconfig.j2
-        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
 
-    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
-      template:
-        src: win/.gitignore_global
-        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitignore_global"
