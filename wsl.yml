@@ -10,6 +10,41 @@
     - { role: "timezone", tags: timezone}
     - { role: "sshd", tags: sshd}
   tasks:
+    - name: Install python3-pip packages
+      apt:
+        pkg: python3-pip
+        state: present
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: pip install
+      pip:
+        name:
+          - requests
+          - django
+          - django-security
+          - gunicorn
+          - djangorestframework
+          - djangorestframework-simplejwt
+          - djangorestframework-gis
+          - django-cors-headers
+          - django-oauth-toolkit
+          - django-environ
+          - djoser
+          - django-bootstrap4
+          - xlrd
+          - django-pandas
+          - pandas-datareader
+          - django-crispy-forms
+          - django-filter
+          - django-pure-pagination
+          - coverage
+          - django-debug-toolbar
+          - wheel
+          - django-cleanup
+          - Pillow
+          - stripe
+
     - name: Install postfix packages
       apt:
         pkg: postfix
