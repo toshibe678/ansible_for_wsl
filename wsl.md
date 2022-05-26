@@ -18,3 +18,8 @@ WSLでやっておくコマンド
 ln -s /mnt/c/Users/[User_name]/Downloads ~/Downloads
 
 ```
+
+alternativesのeditorをvimにする
+```shell
+sudo update-alternatives --config editor
+```
