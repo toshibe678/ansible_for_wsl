@@ -11,5 +11,6 @@
       template:
         src: win/.ssh/config
         dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.ssh/config"
+        backup: true
 
 

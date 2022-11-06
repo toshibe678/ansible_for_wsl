@@ -8,6 +8,7 @@
         dest: "/home/{{ user_name }}/.gitconfig"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
+        backup: true
 
     - name: set wsl .gitignore_global
       template:
@@ -15,47 +16,16 @@
         dest: "/home/{{ user_name }}/.gitignore_global"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
+        backup: true
 
     - name: "put win {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
       template:
         src: win/.gitconfig.j2
         dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
+        backup: true
 
     - name: "put win {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
       template:
         src: win/.gitignore_global
         dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitignore_global"
-
-    # git security
-    - name: "create win {{ user_name }} .git/hooks dicrectory"
-      file:
-        path: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks"
-        state: directory
-
-    - name: "create wsl {{ user_name }} .git/hooks dicrectory"
-      file:
-        path: "/home/{{ user_name }}/.git/hooks"
-        state: directory
-        mode: 0755
-        owner: "{{ user_name }}"
-        group: "{{ user_name }}"
-
-    - name: "put win {{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/_local-hook-exec"
-      template:
-        src: git/hooks/_local-hook-exec
-        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/_local-hook-exec"
-
-    - name: "put wsl /home/{{ user_name }}/.git/hooks/_local-hook-exec"
-      template:
-        src: git/hooks/_local-hook-exec
-        dest: "/home/{{ user_name }}/.git/hooks/_local-hook-exec"
-
-    - name: "put win {{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/pre-commit"
-      template:
-        src: git/hooks/win-pre-commit
-        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.git/hooks/pre-commit"
-
-    - name: "put wsl /home/{{ user_name }}//.git/hooks/pre-commit"
-      template:
-        src: git/hooks/pre-commit
-        dest: "/home/{{ user_name }}/.git/hooks/pre-commit"
+        backup: true

@@ -17,41 +17,6 @@
         update_cache: yes
         cache_valid_time: 3600
 
-    - name: pip install
-      pip:
-        name:
-          - requests
-          - django
-          - django-security
-          - gunicorn
-          - djangorestframework
-          - djangorestframework-simplejwt
-          - djangorestframework-gis
-          - django-cors-headers
-          - django-oauth-toolkit
-          - django-environ
-          - djoser
-          - django-bootstrap4
-          - xlrd
-          - django-pandas
-          - pandas-datareader
-          - django-crispy-forms
-          - django-filter
-          - django-pure-pagination
-          - coverage
-          - django-debug-toolbar
-          - wheel
-          - django-cleanup
-          - Pillow
-          - stripe
-
-    - name: Install postfix packages
-      apt:
-        pkg: postfix
-        state: present
-        update_cache: yes
-        cache_valid_time: 3600
-
     - name: "create {{ user_name }} .ssh/ dicrectory"
       file:
         path: "/home/{{ user_name }}/.ssh"
@@ -67,6 +32,8 @@
         owner: root
         group: root
         mode: 0644
+        backup: true
+
     #######################################################################################################################
     # ホームディレクトリ関連
     #######################################################################################################################
@@ -76,6 +43,7 @@
         dest: "/home/{{ user_name }}/.bashrc"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
+        backup: true
 
     - name: set .bash_alias
       template:
@@ -83,6 +51,7 @@
         dest: "/home/{{ user_name }}/.bash_aliases"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
+        backup: true
 
     - name: set .profile
       template:
@@ -90,6 +59,7 @@
         dest: "/home/{{ user_name }}/.profile"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
+        backup: true
 
     - name: set .bash_profile
       template:
@@ -97,6 +67,7 @@
         dest: "/home/{{ user_name }}/.bash_profile"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
+        backup: true
 
     - name: "set {{ user_name }} user authorized_keys"
       template:
@@ -105,6 +76,7 @@
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
         mode: 0600
+        backup: true
 
     - name: "set {{ user_name }} user .ssh/config"
       template:
@@ -113,6 +85,7 @@
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
         mode: 0600
+        backup: true
 
     - name: "put /home/{{ user_name }}/service_start.sh"
       template:
@@ -121,3 +94,4 @@
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
         mode: 0755
+        backup: true
