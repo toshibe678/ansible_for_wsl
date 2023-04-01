@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  become: no
+  become: True
   tasks:
     - name: set wsl .gitconfig.j2
       template:

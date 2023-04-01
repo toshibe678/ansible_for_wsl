@@ -95,3 +95,56 @@
         group: "{{ user_name }}"
         mode: 0755
         backup: true
+
+    #######################################################################################################################
+    # Docker関連
+    #######################################################################################################################
+    - name: set dockers official gpg key
+      apt_key:
+        url: "https://download.docker.com/linux/ubuntu/gpg"
+        state: present
+      register: set_key
+
+    - name: amd64 set up the stable repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+        state: present
+
+    - name: install docker-ce
+      apt:
+        pkg: docker-ce
+        state: present
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: install docker-compose-plugin
+      apt:
+        pkg: docker-compose-plugin
+        state: present
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Add to docker group
+      user:
+        name: "{{ user_name }}"
+        groups: docker
+        append: yes
+
+    - name: "put /etc/docker/daemon.json"
+      template:
+        src: etc/docker/daemon.json
+        dest: /etc/docker/daemon.json
+        owner: root
+        group: root
+        mode: 0644
+        backup: true
+
+    - name: restart docker
+      service:
+        name: docker
+        state: restarted
+
+    - name: enable docker
+      service:
+        name: docker
+        enabled: yes
