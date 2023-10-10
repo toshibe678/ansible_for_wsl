@@ -8,7 +8,9 @@
     - { role: "locale", tags: locale}
     - { role: "sudo", tags: sudo}
     - { role: "timezone", tags: timezone}
-    - { role: "sshd", tags: sshd}
+    - roles: ./wsl_roles
+      role: "sshd"
+      tags: sshd
   tasks:
     - name: Install python3-pip packages
       apt:
@@ -138,13 +140,3 @@
         group: root
         mode: 0644
         backup: true
-
-    - name: restart docker
-      service:
-        name: docker
-        state: restarted
-
-    - name: enable docker
-      service:
-        name: docker
-        enabled: yes

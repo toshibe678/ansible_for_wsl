@@ -4,3 +4,17 @@
 - import_playbook: ./win.yml
 
 - import_playbook: ./git.yml
+
+- hosts: all
+  become: true
+  become_user: root
+  tasks:
+    - name: restart docker
+      service:
+        name: docker
+        state: restarted
+
+    - name: enable docker
+      service:
+        name: docker
+        enabled: yes

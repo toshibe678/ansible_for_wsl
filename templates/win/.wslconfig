@@ -1,0 +1,33 @@
+[wsl2]
+# カスタム Linux カーネルへの絶対 Windows パス。 https://github.com/microsoft/WSL2-Linux-Kernel
+# kernel=C:\\temp\\myCustomKernel
+
+# 追加のカーネル コマンド ライン引数。
+# kernelCommandLine = vsyscall=emulate
+
+# WSL 2 VM に割り当てるメモリの量
+memory={{ wsl_mem }}
+
+# WSL 2 VM に割り当てる倫理プロセッサの数。
+processors={{ wsl_cpu }}
+
+# WSL 2 VM に追加するスワップ領域の大きさ。スワップ ファイルがない場合は 0。 スワップ ストレージは、メモリの需要がハードウェア デバイスの制限を超える場合に使用されるディスク ベースの RAM です。
+swap=64GB
+
+# スワップ仮想ハード ディスクへの絶対 Windows パス。
+swapfile=C:\\temp\\wsl-swap.vhdx
+
+# 既定の true 設定により、Windows は WSL 2 仮想マシンに割り当てられた未使用のメモリを再利用できます。
+pageReporting=true
+
+# WSL 2 VM でワイルドカードまたは localhost にバインドされたポートに、localhost:port 経由でホストから接続できるかどうかを指定するブール値。
+localhostforwarding=true
+
+# 入れ子になった仮想化を有効または無効にして、他の入れ子になった VM を WSL 2 内で実行できるようにするブール値。 Windows 11でのみ使用できます。
+nestedVirtualization=true
+
+# WSL で GUI アプリケーション (WSLg) のサポートをオンまたはオフにするブール値。 Windows 11でのみ使用できます。
+guiApplications=true
+
+# WSL 2 ディストリビューション インスタンスの開始時に dmesg の内容を表示する出力コンソール ウィンドウを有効にするブール値。 Windows 11でのみ使用できます。
+# debugConsole=true

@@ -22,8 +22,3 @@
   name: timezone
   scm: git
   version: "master"
-
-- src: https://github.com/toshi-click/roles_wsl_sshd.git
-  name: sshd
-  scm: git
-  version: "master"
