@@ -24,3 +24,15 @@
         src: win/.wslconfig
         dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.wslconfig"
         backup: true
+
+    - name: "put win {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
+      template:
+        src: win/.gitconfig.j2
+        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
+        backup: true
+
+    - name: "put win {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
+      template:
+        src: win/.gitignore_global
+        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitignore_global"
+        backup: true

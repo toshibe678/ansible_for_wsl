@@ -14,12 +14,6 @@ processors={{ wsl_cpu }}
 # WSL 2 VM に追加するスワップ領域の大きさ。スワップ ファイルがない場合は 0。 スワップ ストレージは、メモリの需要がハードウェア デバイスの制限を超える場合に使用されるディスク ベースの RAM です。
 swap=64GB
 
-# スワップ仮想ハード ディスクへの絶対 Windows パス。
-swapfile=C:\\temp\\wsl-swap.vhdx
-
-# 既定の true 設定により、Windows は WSL 2 仮想マシンに割り当てられた未使用のメモリを再利用できます。
-pageReporting=true
-
 # WSL 2 VM でワイルドカードまたは localhost にバインドされたポートに、localhost:port 経由でホストから接続できるかどうかを指定するブール値。
 localhostforwarding=true
 

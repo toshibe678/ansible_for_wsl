@@ -3,21 +3,54 @@
   become: true
   become_user: root
   roles:
-    - { role: "ansible", tags: ansible}
-    - { role: "dev_tool_install", tags: dev_tool}
     - { role: "locale", tags: locale}
-    - { role: "sudo", tags: sudo}
-    - { role: "timezone", tags: timezone}
-    - roles: ./wsl_roles
-      role: "sshd"
-      tags: sshd
+
   tasks:
-    - name: Install python3-pip packages
-      apt:
-        pkg: python3-pip
+    - name: Set timezone to Asia/Tokyo
+      file:
+        src: /usr/share/zoneinfo/Asia/Tokyo
+        path: /etc/localtime
+        state: link
+        force: yes
+      notify:
+        - update timezone
+
+    - name: "put /etc/sudoers.d/{{ sudo_user_name }}"
+      template:
+        src: etc/sudoers.d/user_sudo
+        dest: "/etc/sudoers.d/{{ sudo_user_name }}"
+        owner: root
+        group: root
+        mode: 0440
+        backup: true
+
+    - name: Install Ubuntu common dev tool packages
+      ansible.builtin.package:
+        name:
+          - ansible
+          - bash-completion
+          - bmon
+          - curl
+          - git
+          - htop
+          - iftop
+          - iotop
+          - iproute2
+          - iputils-ping
+          - iptraf
+          - iptraf-ng
+          - net-tools
+          - nmap
+          - sudo
+          - sysstat
+          - telnet
+          - tree
+          - unzip
+          - vim
+          - wget
+          - zip
+          - python3-pip
         state: present
-        update_cache: yes
-        cache_valid_time: 3600
 
     - name: "create {{ user_name }} .ssh/ dicrectory"
       file:
@@ -98,6 +131,21 @@
         mode: 0755
         backup: true
 
+    - name: set wsl .gitconfig.j2
+      template:
+        src: home/.gitconfig.j2
+        dest: "/home/{{ user_name }}/.gitconfig"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        backup: true
+
+    - name: set wsl .gitignore_global
+      template:
+        src: home/.gitignore_global.j2
+        dest: "/home/{{ user_name }}/.gitignore_global"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        backup: true
     #######################################################################################################################
     # Docker関連
     #######################################################################################################################
@@ -140,3 +188,15 @@
         group: root
         mode: 0644
         backup: true
+
+    - name: apt add golang repository
+      ansible.builtin.apt_repository:
+        repo: ppa:longsleep/golang-backports
+
+    - name: Install golang
+      ansible.builtin.package:
+        name:
+          - golang
+          - golang-go
+        state: present
+

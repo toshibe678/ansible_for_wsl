@@ -3,8 +3,6 @@
 
 - import_playbook: ./win.yml
 
-- import_playbook: ./git.yml
-
 - hosts: all
   become: true
   become_user: root

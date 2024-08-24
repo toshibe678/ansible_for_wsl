@@ -1,24 +1,4 @@
-- src: https://github.com/toshi-click/roles_ansible.git
-  name: ansible
-  scm: git
-  version: "master"
-
-- src: https://github.com/toshi-click/roles_dev_tool_install.git
-  name: dev_tool_install
-  scm: git
-  version: "master"
-
 - src: https://github.com/toshi-click/roles_locale.git
   name: locale
-  scm: git
-  version: "master"
-
-- src: https://github.com/toshi-click/roles_sudo.git
-  name: sudo
-  scm: git
-  version: "master"
-
-- src: https://github.com/toshi-click/roles_timezone.git
-  name: timezone
   scm: git
   version: "master"
