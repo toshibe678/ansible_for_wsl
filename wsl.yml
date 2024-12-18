@@ -69,6 +69,22 @@
         mode: 0644
         backup: true
 
+    - name: "create {{ user_name }} .aws/ dicrectory"
+      file:
+        path: "/home/{{ user_name }}/.aws"
+        state: directory
+        mode: 0700
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+
+    - name: ".aws/config"
+      template:
+        src: home/.aws/config
+        dest: "/home/{{ user_name }}/.aws/config"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: 0600
+        backup: true
     #######################################################################################################################
     # ホームディレクトリ関連
     #######################################################################################################################
