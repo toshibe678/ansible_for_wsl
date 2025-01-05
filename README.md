@@ -16,7 +16,7 @@ ansible-galaxy install -r requirements.yml -p roles --force
 sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
 sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 # user_nameおよびuser_emailは自分のアドレスに変更すること。
-ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click" }' --ask-become-pass  all.yml
+ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click" }' --ask-become-pass --ask-vault-password all.yml
 ```
 
 # 秘密鍵は自分で置いてね
