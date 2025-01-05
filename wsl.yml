@@ -60,15 +60,6 @@
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
 
-    - name: "/etc/wsl.conf"
-      template:
-        src: etc/wsl.conf
-        dest: "/etc/wsl.conf"
-        owner: root
-        group: root
-        mode: 0644
-        backup: true
-
     - name: "create {{ user_name }} .aws/ dicrectory"
       file:
         path: "/home/{{ user_name }}/.aws"
