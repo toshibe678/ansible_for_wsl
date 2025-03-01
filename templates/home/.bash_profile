@@ -25,3 +25,6 @@ fi
 export PATH=$PATH:"/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin"
 
 export PATH="/usr/local/bin:$PATH"
+
+/usr/bin/keychain -q --nogui $HOME/.ssh/gitkey
+source $HOME/.keychain/$(hostname)-sh

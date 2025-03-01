@@ -50,6 +50,9 @@
           - wget
           - zip
           - python3-pip
+          - openssh-client
+          - socat
+          - keychain
         state: present
 
     - name: "create {{ user_name }} .ssh/ dicrectory"
