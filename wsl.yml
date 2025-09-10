@@ -2,10 +2,11 @@
 - hosts: all
   become: true
   become_user: root
-  roles:
-    - { role: "locale", tags: locale}
 
   tasks:
+    - name: "set-locale"
+      shell: update-locale LANG=ja_JP.UTF-8
+
     - name: Set timezone to Asia/Tokyo
       file:
         src: /usr/share/zoneinfo/Asia/Tokyo
@@ -111,15 +112,6 @@
         group: "{{ user_name }}"
         backup: true
 
-    - name: "set {{ user_name }} user authorized_keys"
-      template:
-        src: "authorized_keys.j2"
-        dest: "/home/{{ user_name }}/.ssh/authorized_keys"
-        owner: "{{ user_name }}"
-        group: "{{ user_name }}"
-        mode: 0600
-        backup: true
-
     - name: "set {{ user_name }} user .ssh/config"
       template:
         src: "home/.ssh/config.j2"
@@ -127,15 +119,6 @@
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
         mode: 0600
-        backup: true
-
-    - name: "put /home/{{ user_name }}/service_start.sh"
-      template:
-        src: home/service_start.sh
-        dest: "/home/{{ user_name }}/service_start.sh"
-        owner: "{{ user_name }}"
-        group: "{{ user_name }}"
-        mode: 0755
         backup: true
 
     - name: set wsl .gitconfig.j2
@@ -152,48 +135,6 @@
         dest: "/home/{{ user_name }}/.gitignore_global"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
-        backup: true
-    #######################################################################################################################
-    # Docker関連
-    #######################################################################################################################
-    - name: set dockers official gpg key
-      apt_key:
-        url: "https://download.docker.com/linux/ubuntu/gpg"
-        state: present
-      register: set_key
-
-    - name: amd64 set up the stable repository
-      apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
-        state: present
-
-    - name: install docker-ce
-      apt:
-        pkg: docker-ce
-        state: present
-        update_cache: yes
-        cache_valid_time: 3600
-
-    - name: install docker-compose-plugin
-      apt:
-        pkg: docker-compose-plugin
-        state: present
-        update_cache: yes
-        cache_valid_time: 3600
-
-    - name: Add to docker group
-      user:
-        name: "{{ user_name }}"
-        groups: docker
-        append: yes
-
-    - name: "put /etc/docker/daemon.json"
-      template:
-        src: etc/docker/daemon.json
-        dest: /etc/docker/daemon.json
-        owner: root
-        group: root
-        mode: 0644
         backup: true
 
     - name: apt add golang repository

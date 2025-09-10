@@ -13,12 +13,6 @@ $ sudo apt -y upgrade
 ```
 
 WSLでやっておくコマンド
-```
-よく使うフォルダにWSL側からリンクを貼る
-ln -s /mnt/c/Users/[User_name]/Downloads ~/Downloads
-
-```
-
 alternativesのeditorをvimにする
 ```shell
 sudo update-alternatives --config editor

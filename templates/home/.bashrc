@@ -114,7 +114,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-if [ -f ~/service_start.sh ]; then
-    . ~/service_start.sh
-fi
