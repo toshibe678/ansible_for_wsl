@@ -14,15 +14,10 @@
     quotepath = false
     # 濁点つきのディレクトリ・ファイルが分けて表示されてしまう UTF8-MAC 問題の解決方法
     precomposeunicode = true
-    # エディタとマージツールををVSCode指定
+    # エディタとマージツールをVSCode指定
     editor = code --wait
     # セキュリティ設定
     hooksPath = C:\\Users\\{{ user_name }}\\.git\\hooks
-[difftool "sourcetree"]
-    cmd = '' \"$LOCAL\" \"$REMOTE\"
-[mergetool "sourcetree"]
-    cmd = "'' "
-    trustExitCode = true
 [push]
     # カレントブランチと同名のリモートブランチが存在する場合のみ、カレントブランチのpushが行われる。
     default = simple
