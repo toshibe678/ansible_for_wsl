@@ -9,3 +9,6 @@ win_git_key_name: 'id_ed25519'
 
 wsl_cpu: 8
 wsl_mem: "32GB"
+
+bedrock_access_key_id: "{{ crypt_bedrock_access_key_id }}"
+bedrock_secret_access_key: "{{ crypt_bedrock_secret_access_key }}"
