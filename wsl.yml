@@ -172,3 +172,194 @@
         global: yes
         state: present
 
+    - name: "git safe directory at /home/{{ user_name }}/git/scripts"
+      shell: "git config --global --add safe.directory /home/{{ user_name }}/scripts"
+      tags: git_checkout
+
+    - name: Check if scripts directory exists
+      stat:
+        path: "/home/{{ user_name }}/git/scripts"
+      register: scripts_dir_stat
+      tags: git_checkout
+
+    - name: すでにクローン済みの場合ディレクトリとファイルのパーミッションを再帰的に変更する
+      file:
+        path: "/home/{{ user_name }}/git/scripts"
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        recurse: yes
+      when: scripts_dir_stat.stat.exists
+      tags: git_checkout
+
+    - name: Clone scripts github repository
+      become: yes
+      become_user: '{{ user_name }}'
+      ansible.builtin.git:
+        repo: git@github.com:toshibe678/scripts.git
+        dest: "/home/{{ user_name }}/git/scripts"
+        clone: yes
+        update: yes
+        key_file: "/home/{{ user_name }}/.ssh/id_ed25519"
+        accept_hostkey: true
+      tags: git_checkout
+
+    - name: "git safe directory at /home/{{ user_name }}/git/scripts"
+      shell: "git config --global --add safe.directory /home/{{ user_name }}/git/scripts"
+      tags: git_checkout
+
+    - name: Check if infra directory exists
+      stat:
+        path: "/home/{{ user_name }}/git/infra"
+      register: infra_dir_stat
+      tags: git_checkout
+
+    - name: すでにクローン済みの場合ディレクトリとファイルのパーミッションを再帰的に変更する
+      file:
+        path: "/home/{{ user_name }}/git/infra"
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        recurse: yes
+      when: infra_dir_stat.stat.exists
+      tags: git_checkout
+
+    - name: Clone infra github repository
+      become: yes
+      become_user: '{{ user_name }}'
+      ansible.builtin.git:
+        repo: git@github.com:toshibe678/infra.git
+        dest: "/home/{{ user_name }}/git/infra"
+        clone: yes
+        update: yes
+        key_file: "/home/{{ user_name }}/.ssh/id_ed25519"
+        accept_hostkey: true
+      tags: git_checkout
+
+    - name: "git safe directory at /home/{{ user_name }}/git/blog.toshi.click"
+      shell: "git config --global --add safe.directory /home/{{ user_name }}/git/blog.toshi.click"
+      tags: git_checkout
+
+    - name: Check if blog.toshi.click directory exists
+      stat:
+        path: "/home/{{ user_name }}/git/blog.toshi.click"
+      register: blog_dir_stat
+      tags: git_checkout
+
+    - name: すでにクローン済みの場合ディレクトリとファイルのパーミッションを再帰的に変更する
+      file:
+        path: "/home/{{ user_name }}/git/blog.toshi.click"
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        recurse: yes
+      when: blog_dir_stat.stat.exists
+      tags: git_checkout
+
+    - name: Clone blog.toshi.click github repository
+      become: yes
+      become_user: '{{ user_name }}'
+      ansible.builtin.git:
+        repo: git@github.com:toshibe678/blog.toshi.click.git
+        dest: "/home/{{ user_name }}/git/blog.toshi.click"
+        clone: yes
+        update: yes
+        key_file: "/home/{{ user_name }}/.ssh/id_ed25519"
+        accept_hostkey: true
+      tags: git_checkout
+
+    - name: "git safe directory at /home/{{ user_name }}/git/CurriculumVitae"
+      shell: "git config --global --add safe.directory /home/{{ user_name }}/git/CurriculumVitae"
+      tags: git_checkout
+
+    - name: Check if CurriculumVitae directory exists
+      stat:
+        path: "/home/{{ user_name }}/git/CurriculumVitae"
+      register: cv_dir_stat
+      tags: git_checkout
+
+    - name: すでにクローン済みの場合ディレクトリとファイルのパーミッションを再帰的に変更する
+      file:
+        path: "/home/{{ user_name }}/git/CurriculumVitae"
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        recurse: yes
+      when: cv_dir_stat.stat.exists
+      tags: git_checkout
+
+    - name: Clone CurriculumVitae github repository
+      become: yes
+      become_user: '{{ user_name }}'
+      ansible.builtin.git:
+        repo: git@github.com:toshibe678/CurriculumVitae.git
+        dest: "/home/{{ user_name }}/git/CurriculumVitae"
+        clone: yes
+        update: yes
+        key_file: "/home/{{ user_name }}/.ssh/id_ed25519"
+        accept_hostkey: true
+      tags: git_checkout
+
+    - name: "git safe directory at /home/{{ user_name }}/git/ansible_for_wsl"
+      shell: "git config --global --add safe.directory /home/{{ user_name }}/git/ansible_for_wsl"
+      tags: git_checkout
+
+    - name: Check if ansible_for_wsl directory exists
+      stat:
+        path: "/home/{{ user_name }}/git/ansible_for_wsl"
+      register: ansible_wsl_dir_stat
+      tags: git_checkout
+
+    - name: すでにクローン済みの場合ディレクトリとファイルのパーミッションを再帰的に変更する
+      file:
+        path: "/home/{{ user_name }}/git/ansible_for_wsl"
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        recurse: yes
+      when: ansible_wsl_dir_stat.stat.exists
+      tags: git_checkout
+
+    - name: Clone ansible_for_wsl github repository
+      become: yes
+      become_user: '{{ user_name }}'
+      ansible.builtin.git:
+        repo: git@github.com:toshibe678/ansible_for_wsl.git
+        dest: "/home/{{ user_name }}/git/ansible_for_wsl"
+        clone: yes
+        update: yes
+        key_file: "/home/{{ user_name }}/.ssh/id_ed25519"
+        accept_hostkey: true
+      tags: git_checkout
+
+    - name: "git safe directory at /home/{{ user_name }}/git/develop"
+      shell: "git config --global --add safe.directory /home/{{ user_name }}/git/develop"
+      tags: git_checkout
+
+    - name: Check if develop directory exists
+      stat:
+        path: "/home/{{ user_name }}/git/develop"
+      register: develop_dir_stat
+      tags: git_checkout
+
+    - name: すでにクローン済みの場合ディレクトリとファイルのパーミッションを再帰的に変更する
+      file:
+        path: "/home/{{ user_name }}/git/develop"
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        recurse: yes
+      when: develop_dir_stat.stat.exists
+      tags: git_checkout
+
+    - name: Clone develop github repository
+      become: yes
+      become_user: '{{ user_name }}'
+      ansible.builtin.git:
+        repo: git@github.com:toshibe678/develop.git
+        dest: "/home/{{ user_name }}/git/develop"
+        clone: yes
+        update: yes
+        key_file: "/home/{{ user_name }}/.ssh/id_ed25519"
+        accept_hostkey: true
+      tags: git_checkout
