@@ -3,7 +3,7 @@ sudo_user_name: "{{ user_name }}"
 sudo_nopassword: "yes"
 
 wsl_mount_dir: "/mnt/"
-
+win_user_name: "{{ user_name }}be"
 win_ssh_key_name: "id_ed25519"
 win_git_key_name: 'id_ed25519'
 

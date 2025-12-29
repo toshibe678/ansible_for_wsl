@@ -1,4 +1,4 @@
 ---
 - import_playbook: ./wsl.yml
-
+- import_playbook: ./docker.yml
 - import_playbook: ./win.yml

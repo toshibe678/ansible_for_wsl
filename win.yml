@@ -2,31 +2,31 @@
 - hosts: all
   become: no
   tasks:
-    - name: "create {{ user_name }} .ssh/ dicrectory"
+    - name: "create {{ win_user_name }} .ssh/ dicrectory"
       file:
-        path: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.ssh"
+        path: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.ssh"
         state: directory
 
-    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.ssh/config"
+    - name: "put {{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.ssh/config"
       template:
         src: win/.ssh/config
-        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.ssh/config"
+        dest: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.ssh/config"
         backup: true
 
-    - name: "put {{ wsl_mount_dir }}c/Users/{{ user_name }}/.ssh/config"
+    - name: "put {{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.ssh/config"
       template:
         src: win/.ssh/config
-        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.ssh/config"
+        dest: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.ssh/config"
         backup: true
 
-    - name: "put win {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
+    - name: "put win {{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.gitconfig"
       template:
         src: win/.gitconfig.j2
-        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
+        dest: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.gitconfig"
         backup: true
 
-    - name: "put win {{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitconfig"
+    - name: "put win {{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.gitconfig"
       template:
         src: win/.gitignore_global
-        dest: "{{ wsl_mount_dir }}c/Users/{{ user_name }}/.gitignore_global"
+        dest: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.gitignore_global"
         backup: true

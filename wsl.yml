@@ -2,7 +2,6 @@
 - hosts: all
   become: true
   become_user: root
-
   tasks:
     - name: "Generate ja_JP.UTF-8 locale"
       locale_gen:
@@ -224,7 +223,7 @@
         update: yes
         key_file: "/home/{{ user_name }}/.ssh/id_ed25519"
         accept_hostkey: true
-      when: (scripts_git_status is undefined) or (scripts_git_status.stdout == '')
+      when: (scripts_git_status is skipped) or (scripts_git_status.stdout is not defined) or (scripts_git_status.stdout == '')
       tags: git_checkout
 
     - name: "git safe directory at /home/{{ user_name }}/git/scripts"
@@ -269,7 +268,7 @@
         update: yes
         key_file: "/home/{{ user_name }}/.ssh/id_ed25519"
         accept_hostkey: true
-      when: (infra_git_status is undefined) or (infra_git_status.stdout == '')
+      when: (infra_git_status is skipped) or (infra_git_status.stdout is not defined) or (infra_git_status.stdout == '')
       tags: git_checkout
 
     - name: "git safe directory at /home/{{ user_name }}/git/blog.toshi.click"
@@ -314,7 +313,7 @@
         update: yes
         key_file: "/home/{{ user_name }}/.ssh/id_ed25519"
         accept_hostkey: true
-      when: (blog_git_status is undefined) or (blog_git_status.stdout == '')
+      when: (blog_git_status is skipped) or (blog_git_status.stdout is not defined) or (blog_git_status.stdout == '')
       tags: git_checkout
 
     - name: "git safe directory at /home/{{ user_name }}/git/CurriculumVitae"
@@ -359,7 +358,7 @@
         update: yes
         key_file: "/home/{{ user_name }}/.ssh/id_ed25519"
         accept_hostkey: true
-      when: (cv_git_status is undefined) or (cv_git_status.stdout == '')
+      when: (cv_git_status is skipped) or (cv_git_status.stdout is not defined) or (cv_git_status.stdout == '')
       tags: git_checkout
 
     - name: "git safe directory at /home/{{ user_name }}/git/ansible_for_wsl"
@@ -404,7 +403,7 @@
         update: yes
         key_file: "/home/{{ user_name }}/.ssh/id_ed25519"
         accept_hostkey: true
-      when: (ansible_wsl_git_status is undefined) or (ansible_wsl_git_status.stdout == '')
+      when: (ansible_wsl_git_status is skipped) or (ansible_wsl_git_status.stdout is not defined) or (ansible_wsl_git_status.stdout == '')
       tags: git_checkout
 
     - name: "git safe directory at /home/{{ user_name }}/git/develop"
@@ -449,5 +448,5 @@
         update: yes
         key_file: "/home/{{ user_name }}/.ssh/id_ed25519"
         accept_hostkey: true
-      when: (develop_git_status is undefined) or (develop_git_status.stdout == '')
+      when: (develop_git_status is skipped) or (develop_git_status.stdout is not defined) or (develop_git_status.stdout == '')
       tags: git_checkout
