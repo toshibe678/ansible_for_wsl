@@ -108,6 +108,7 @@
         dest: "/home/{{ user_name }}/.bash_aliases"
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
+        mode: 0644
         backup: true
 
     - name: set .profile
