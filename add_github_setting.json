@@ -1,0 +1,42 @@
+{
+    // Copilot Chat の言語を日本語に設定
+    "github.copilot.chat.localeOverride": "ja",
+    // コードを編集しているときに、次に編集すべき場所 を Copilot が提案してくれる機能
+    "github.copilot.nextEditSuggestions.enabled": true,
+    // Agent Mode を有効化
+    "chat.agent.enabled": true,
+    // 最大リクエスト数を増やす
+    "chat.agent.maxRequests": 1000,
+    // 例：安全なコマンドだけ自動承認する設定
+    "chat.tools.terminal.autoApprove": {
+        "mkdir": true, // mkdir は自動承認
+        "npm run build": true, // npm run build は自動承認
+        "/^git (status|show\\b.*)/": true, // git status, git show は自動承認
+        "rm": false, // rm は承認必須（デフォルト）
+        "curl": false, // curl は承認必須（デフォルト）
+        "rmdir": false,
+        "del": false,
+        "kill": false,
+        "wget": false,
+        "eval": false,
+        "chmod": false,
+        "chown": false,
+        "/^Remove-Item\\b/i": false
+    },
+    // 言語別に Copilot を有効/無効化
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false // Git コミットメッセージ入力は無効
+    },
+    "github.copilot.advanced": {
+        "excludeFiles": [
+            "**/*.env", // 環境変数ファイル
+            "**/config.json", // 設定ファイル
+            "**/example/**", // サンプルディレクトリ
+            "**/example2/**", // サンプルディレクトリ２
+            "**/database.yml" // DB設定
+        ],
+    }
+}

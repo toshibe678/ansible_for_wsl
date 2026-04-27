@@ -176,9 +176,9 @@
         global: yes
         state: present
 
-    - name: npmで@anthropic-ai/claude-codeをグローバルインストール
+    - name: npmで@github/copilot(Github Copilot CLI)をグローバルインストール
       npm:
-        name: "@anthropic-ai/claude-code"
+        name: "@github/copilot"
         global: yes
         state: present
 
