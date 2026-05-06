@@ -31,3 +31,7 @@ export AWS_REGION="us-east-1"
 # export CLAUDE_CODE_MAX_OUTPUT_TOKENS=4096
 # export MAX_THINKING_TOKENS=1024
 CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+
+# Windowsのデフォルトブラウザで開くための設定
+# https://qiita.com/mfunaki/items/37dca9fdb5db427dfd7c
+export BROWSER='/mnt/c/Windows/System32/rundll32.exe url.dll,FileProtocolHandler'

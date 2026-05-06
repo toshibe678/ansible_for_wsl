@@ -182,6 +182,39 @@
         global: yes
         state: present
 
+    - name: Create /etc/apt/keyrings directory
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Download Claude Code APT key
+      shell: "curl -fsSL https://downloads.claude.ai/keys/claude-code.asc -o /etc/apt/keyrings/claude-code.asc"
+
+    - name: Add Claude Code APT repository
+      shell: "echo 'deb [signed-by=/etc/apt/keyrings/claude-code.asc] https://downloads.claude.ai/claude-code/apt/stable stable main' | tee /etc/apt/sources.list.d/claude-code.list"
+
+    - name: Update APT cache
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install Claude Code
+      ansible.builtin.package:
+        name: claude-code
+        state: present
+
+    # Claude Codeのサンドボックス機能で必要なbubblewrapをインストール
+    - name: Install bubblewrap
+      ansible.builtin.package:
+        name: bubblewrap
+        state: present
+    
+    # Claude Codeのサンドボックス機能で必要なsocatをインストール
+    - name: Install socat
+      ansible.builtin.package:
+        name: socat
+        state: present
+
     - name: "git safe directory at /home/{{ user_name }}/git/scripts"
       shell: "git config --global --add safe.directory /home/{{ user_name }}/scripts"
       tags: git_checkout
