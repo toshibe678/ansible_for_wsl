@@ -91,6 +91,23 @@
         group: "{{ user_name }}"
         mode: 0600
         backup: true
+
+    - name: "create {{ user_name }} .config/pip/ dicrectory"
+      file:
+        path: "/home/{{ user_name }}/.config/pip"
+        state: directory
+        mode: 0700
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+
+    - name: ".config/pip/pip.conf"
+      template:
+        src: home/.config/pip/pip.conf
+        dest: "/home/{{ user_name }}/.config/pip/pip.conf"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: 0600
+        backup: true
     #######################################################################################################################
     # ホームディレクトリ関連
     #######################################################################################################################
@@ -169,6 +186,9 @@
           - nodejs
           - npm
         state: present
+
+    - name: npm registryをflatt.techに設定
+      ansible.builtin.command: npm config set registry https://npm.flatt.tech
 
     - name: npmでgo-task/cliをグローバルインストール
       npm:
