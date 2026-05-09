@@ -182,6 +182,11 @@
         global: yes
         state: present
 
+    - name: Install GitHub CLI
+      ansible.builtin.package:
+        name: gh
+        state: present
+
     - name: Create /etc/apt/keyrings directory
       file:
         path: /etc/apt/keyrings
