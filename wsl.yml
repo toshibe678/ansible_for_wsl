@@ -196,12 +196,6 @@
         global: yes
         state: present
 
-    - name: npmで@github/copilot(Github Copilot CLI)をグローバルインストール
-      npm:
-        name: "@github/copilot"
-        global: yes
-        state: present
-
     - name: Install GitHub CLI
       ansible.builtin.package:
         name: gh
