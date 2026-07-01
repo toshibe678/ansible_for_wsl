@@ -169,6 +169,32 @@
         group: "{{ user_name }}"
         backup: true
 
+    - name: "create {{ user_name }} .claude/ directory"
+      file:
+        path: "/home/{{ user_name }}/.claude"
+        state: directory
+        mode: 0700
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+
+    - name: "set ~/.claude/CLAUDE.md"
+      template:
+        src: home/.claude/CLAUDE.md.j2
+        dest: "/home/{{ user_name }}/.claude/CLAUDE.md"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: 0644
+        backup: true
+
+    - name: "set ~/.claude/settings.json"
+      template:
+        src: home/.claude/settings.json.j2
+        dest: "/home/{{ user_name }}/.claude/settings.json"
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: 0644
+        backup: true
+
     - name: apt add golang repository
       ansible.builtin.apt_repository:
         repo: ppa:longsleep/golang-backports

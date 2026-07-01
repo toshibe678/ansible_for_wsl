@@ -30,3 +30,20 @@
         src: win/.gitignore_global
         dest: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.gitignore_global"
         backup: true
+
+    - name: "create {{ win_user_name }} .claude/ directory"
+      file:
+        path: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.claude"
+        state: directory
+
+    - name: "put win .claude/CLAUDE.md"
+      template:
+        src: home/.claude/CLAUDE.md.j2
+        dest: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.claude/CLAUDE.md"
+        backup: true
+
+    - name: "put win .claude/settings.json"
+      template:
+        src: home/.claude/settings.json.j2
+        dest: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.claude/settings.json"
+        backup: true
