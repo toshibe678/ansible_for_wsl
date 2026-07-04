@@ -2,6 +2,20 @@
 - hosts: all
   become: no
   tasks:
+    - name: "create {{ user_name }} ~/git directory"
+      file:
+        path: "/home/{{ user_name }}/git"
+        state: directory
+
+    - name: Clone or update develop-setting repository
+      become: yes
+      become_user: "{{ user_name }}"
+      ansible.builtin.git:
+        repo: "{{ develop_setting_repo_url }}"
+        dest: "{{ develop_setting_local_repo_dir }}"
+        clone: yes
+        update: yes
+
     - name: "create {{ win_user_name }} .ssh/ dicrectory"
       file:
         path: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.ssh"
@@ -38,12 +52,12 @@
 
     - name: "put win .claude/CLAUDE.md"
       template:
-        src: home/.claude/CLAUDE.md.j2
+        src: "{{ develop_setting_local_repo_dir }}/templates/claude_CLAUDE.md.j2"
         dest: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.claude/CLAUDE.md"
         backup: true
 
     - name: "put win .claude/settings.json"
       template:
-        src: home/.claude/settings.json.j2
+        src: "{{ develop_setting_local_repo_dir }}/templates/claude_settings.json.j2"
         dest: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.claude/settings.json"
         backup: true

@@ -169,31 +169,29 @@
         group: "{{ user_name }}"
         backup: true
 
-    - name: "create {{ user_name }} .claude/ directory"
+    - name: "create {{ user_name }} ~/git directory"
       file:
-        path: "/home/{{ user_name }}/.claude"
+        path: "/home/{{ user_name }}/git"
         state: directory
-        mode: 0700
+        mode: 0755
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
 
-    - name: "set ~/.claude/CLAUDE.md"
-      template:
-        src: home/.claude/CLAUDE.md.j2
-        dest: "/home/{{ user_name }}/.claude/CLAUDE.md"
-        owner: "{{ user_name }}"
-        group: "{{ user_name }}"
-        mode: 0644
-        backup: true
+    - name: Clone or update develop-setting repository
+      become: yes
+      become_user: "{{ user_name }}"
+      ansible.builtin.git:
+        repo: "{{ develop_setting_repo_url }}"
+        dest: "{{ develop_setting_local_repo_dir }}"
+        clone: yes
+        update: yes
 
-    - name: "set ~/.claude/settings.json"
-      template:
-        src: home/.claude/settings.json.j2
-        dest: "/home/{{ user_name }}/.claude/settings.json"
-        owner: "{{ user_name }}"
-        group: "{{ user_name }}"
-        mode: 0644
-        backup: true
+    - name: Apply develop-setting role from local repository
+      block:
+        - name: Include develop-setting role
+          ansible.builtin.include_role:
+            name: "{{ develop_setting_local_repo_dir }}"
+      become: false
 
     - name: apt add golang repository
       ansible.builtin.apt_repository:
@@ -225,39 +223,6 @@
     - name: Install GitHub CLI
       ansible.builtin.package:
         name: gh
-        state: present
-
-    - name: Create /etc/apt/keyrings directory
-      file:
-        path: /etc/apt/keyrings
-        state: directory
-        mode: '0755'
-
-    - name: Download Claude Code APT key
-      shell: "curl -fsSL https://downloads.claude.ai/keys/claude-code.asc -o /etc/apt/keyrings/claude-code.asc"
-
-    - name: Add Claude Code APT repository
-      shell: "echo 'deb [signed-by=/etc/apt/keyrings/claude-code.asc] https://downloads.claude.ai/claude-code/apt/stable stable main' | tee /etc/apt/sources.list.d/claude-code.list"
-
-    - name: Update APT cache
-      ansible.builtin.apt:
-        update_cache: yes
-
-    - name: Install Claude Code
-      ansible.builtin.package:
-        name: claude-code
-        state: present
-
-    # Claude Codeのサンドボックス機能で必要なbubblewrapをインストール
-    - name: Install bubblewrap
-      ansible.builtin.package:
-        name: bubblewrap
-        state: present
-    
-    # Claude Codeのサンドボックス機能で必要なsocatをインストール
-    - name: Install socat
-      ansible.builtin.package:
-        name: socat
         state: present
 
     - name: "git safe directory at /home/{{ user_name }}/git/scripts"
