@@ -23,7 +23,8 @@ ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email"
 - この Playbook は実行時に `{{ user_name }}` のホーム配下へ `develop-setting` を clone / update して参照します。  
     参照先: `/home/{{ user_name }}/git/develop-setting`
 - WSL 側の Claude Code 開発環境設定（`~/.claude/CLAUDE.md`、`~/.claude/settings.json`、Claude Code導入・更新設定など）は `develop-setting` role 側を正として適用します。
-- Windows 側の `.claude/` への配置（`/mnt/c/Users/{{ win_user_name }}/.claude/`）は `win.yml` で継続しつつ、テンプレートは `develop-setting/templates/` を参照します。
+- Windows 側の `.claude/` への配置（`/mnt/c/Users/{{ win_user_name }}/.claude/`）も、WSL上で実行する `develop-setting` の `windows_from_wsl` モードで適用します。
+- そのため、Windows実機のOS判定分岐ではなく、Linux実行中に `/mnt/c/Users/...` へ直接設定を書き込みます。
 
 # 秘密鍵は自分で置いてね
 * ローカルネットワークなどに接続するSSH鍵
