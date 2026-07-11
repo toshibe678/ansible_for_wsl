@@ -1,0 +1,4 @@
+roles:
+  - name: develop_setting
+    src: https://github.com/toshibe678/develop-settiong.git
+    
