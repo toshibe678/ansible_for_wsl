@@ -11,6 +11,8 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y ansible git
 git clone https://github.com/toshi-click/ansible_for_wsl.git
 cd ansible_for_wsl
+ansible-galaxy install -r requirements.yml --force
+ansible-galaxy collection install -r requirements.yml --force
 
 # user_nameおよびuser_emailは自分のアドレスに変更すること。
 ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click" }' --ask-become-pass --ask-vault-password all.yml

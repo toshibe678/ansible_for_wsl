@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  become_user: root
+  vars:
+    develop_setting_windows_from_wsl_enabled: true
+    develop_setting_windows_from_wsl_mount_dir: "{{ wsl_mount_dir }}"
+    develop_setting_windows_user_name: "{{ win_user_name }}"
+  roles:
+    - role: develop_setting

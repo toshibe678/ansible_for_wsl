@@ -177,26 +177,6 @@
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
 
-    - name: Clone or update develop-setting repository
-      become: yes
-      become_user: "{{ user_name }}"
-      ansible.builtin.git:
-        repo: "{{ develop_setting_repo_url }}"
-        dest: "{{ develop_setting_local_repo_dir }}"
-        clone: yes
-        update: yes
-
-    - name: Apply develop-setting role from local repository
-      block:
-        - name: Include develop-setting role
-          ansible.builtin.include_role:
-            name: "{{ develop_setting_local_repo_dir }}"
-          vars:
-            develop_setting_windows_from_wsl_enabled: true
-            develop_setting_windows_from_wsl_mount_dir: "{{ wsl_mount_dir }}"
-            develop_setting_windows_user_name: "{{ win_user_name }}"
-      become: false
-
     - name: apt add golang repository
       ansible.builtin.apt_repository:
         repo: ppa:longsleep/golang-backports

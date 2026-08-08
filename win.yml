@@ -7,15 +7,6 @@
         path: "/home/{{ user_name }}/git"
         state: directory
 
-    - name: Clone or update develop-setting repository
-      become: yes
-      become_user: "{{ user_name }}"
-      ansible.builtin.git:
-        repo: "{{ develop_setting_repo_url }}"
-        dest: "{{ develop_setting_local_repo_dir }}"
-        clone: yes
-        update: yes
-
     - name: "create {{ win_user_name }} .ssh/ dicrectory"
       file:
         path: "{{ wsl_mount_dir }}c/Users/{{ win_user_name }}/.ssh"

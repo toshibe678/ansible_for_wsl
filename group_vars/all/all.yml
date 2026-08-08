@@ -12,7 +12,3 @@ wsl_mem: "32GB"
 
 bedrock_access_key_id: "{{ crypt_bedrock_access_key_id }}"
 bedrock_secret_access_key: "{{ crypt_bedrock_secret_access_key }}"
-
-# develop-setting role integration
-develop_setting_repo_url: "https://github.com/toshibe678/develop-setting.git"
-develop_setting_local_repo_dir: "/home/{{ user_name }}/git/develop-setting"
