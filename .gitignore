@@ -32,3 +32,6 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io
 
 !roles/.gitkeep
+
+### ansible-galaxy install -r requirements.yml でインストールされるロールの実体は管理対象外 ###
+roles/develop_setting/
