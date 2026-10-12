@@ -18,6 +18,9 @@ ansible-galaxy collection install -r requirements.yml --force
 ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click" }' --ask-become-pass --ask-vault-password all.yml
 # 2回目以降
 ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click" }' --ask-vault-password all.yml
+# vault passファイルを使用する場合
+ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click" }' --vault-password-file ~/.ssh/ansible_vault_pass all.yml
+
 ```
 
 ## develop-setting 連携について

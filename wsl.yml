@@ -111,14 +111,6 @@
     #######################################################################################################################
     # ホームディレクトリ関連
     #######################################################################################################################
-    - name: set .bashrc
-      template:
-        src: home/.bashrc
-        dest: "/home/{{ user_name }}/.bashrc"
-        owner: "{{ user_name }}"
-        group: "{{ user_name }}"
-        backup: true
-
     - name: set .bash_alias
       template:
         src: home/.bash_aliases.j2
@@ -136,14 +128,6 @@
         group: "{{ user_name }}"
         backup: true
 
-    - name: set .bash_profile
-      template:
-        src: home/.bash_profile
-        dest: "/home/{{ user_name }}/.bash_profile"
-        owner: "{{ user_name }}"
-        group: "{{ user_name }}"
-        backup: true
-
     - name: "set {{ user_name }} user .ssh/config"
       template:
         src: "home/.ssh/config.j2"
@@ -151,14 +135,6 @@
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
         mode: 0600
-        backup: true
-
-    - name: set wsl .gitconfig.j2
-      template:
-        src: home/.gitconfig.j2
-        dest: "/home/{{ user_name }}/.gitconfig"
-        owner: "{{ user_name }}"
-        group: "{{ user_name }}"
         backup: true
 
     - name: set wsl .gitignore_global
