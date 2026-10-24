@@ -1,6 +1,6 @@
 collections:
   - name: community.general
+  - name: ansible.posix
 roles:
   - name: develop_setting
     src: https://github.com/toshibe678/develop-settiong.git
-    

@@ -19,9 +19,34 @@ ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email"
 # 2回目以降
 ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click" }' --ask-vault-password all.yml
 # vault passファイルを使用する場合
-ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click" }' --vault-password-file ~/.ssh/ansible_vault_pass all.yml
+ansible-playbook -D -l wsl -i hosts.yml -e '{ "user_name": "toshi", "user_email": "toshi@toshi.click" }' --vault-password-file ~/.ssh/.ansible_vault_pass all.yml
 
 ```
+
+## 動作環境
+
+ansible-core 2.16 以上（`develop-setting` の最小の版と同じ）。Ubuntu 24.04 / 26.04。collection は `community.general` と `ansible.posix`（実行時間の記録に使う）です。
+
+## develop-setting への集約
+
+WSL 固有の設定（ロケール、タイムゾーン、sudoers、Windows 連携、docker）だけをこのリポジトリに残し、
+開発言語・ツール・共通CLI・ホーム直下の設定・AI設定・個人リポジトリの clone は `develop-setting`（`develop_setting` role）を正としています。
+`develop.yml` が `develop_setting_profile: workstation`（全グループ有効）で呼び出します。
+`.aws/config` と SSH 鍵（Vault 暗号化済み）は、`develop.yml` が絶対パスで role に渡します。
+
+### 取り込み前の確認（`develop-setting` の変更を `main` へ入れる前）
+
+`requirements.yml` は `develop-setting` の `main` の最新を取得します。変更を取り込む前に、作業ブランチを取得した状態で差分を確認します。
+
+```bash
+make check-branch BRANCH=<develop-setting の作業ブランチ> VAULT_PASS=~/.ssh/.ansible_vault_pass
+```
+
+一時的な requirements ファイルを `$TMPDIR` に作る（コミットしない）ので、リポジトリの `requirements.yml` は変わりません。`--check -D` の出力を残してください。
+
+### 検査
+
+`make lint`（`ansible-playbook --syntax-check` と `ansible-lint`）を push 前に実行してください。CI は `.github/workflows/ansible-lint.yml` です。
 
 ## develop-setting 連携について
 
