@@ -1,11 +1,24 @@
 ---
+# develop 関連の設定は develop-setting（develop_setting role）に集約している。WSL は workstation プロファイル（全グループ有効）で適用する
 - hosts: all
   become: true
   gather_facts: true
   become_user: root
   vars:
+    develop_setting_profile: workstation
     develop_setting_windows_from_wsl_enabled: true
     develop_setting_windows_from_wsl_mount_dir: "{{ wsl_mount_dir }}"
     develop_setting_windows_user_name: "{{ win_user_name }}"
+    # クラウド認証設定（Vault 暗号化ファイルの絶対パスを渡す。role は中身を読まない）
+    develop_setting_aws_config_src: "{{ playbook_dir }}/templates/home/.aws/config"
+    develop_setting_ssh_private_key_src: "{{ playbook_dir }}/files/id_ed25519"
+    # .gitconfig の safe.directory（git config --add は使わない）
+    develop_setting_git_safe_directories:
+      - "/home/{{ user_name }}/git/scripts"
+      - "/home/{{ user_name }}/git/infra"
+      - "/home/{{ user_name }}/git/blog.toshi.click"
+      - "/home/{{ user_name }}/git/CurriculumVitae"
+      - "/home/{{ user_name }}/git/ansible_for_wsl"
+      - "/home/{{ user_name }}/git/develop"
   roles:
     - role: develop_setting
