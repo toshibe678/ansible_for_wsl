@@ -12,6 +12,18 @@
     # クラウド認証設定（Vault 暗号化ファイルの絶対パスを渡す。role は中身を読まない）
     develop_setting_aws_config_src: "{{ playbook_dir }}/templates/home/.aws/config"
     develop_setting_ssh_private_key_src: "{{ playbook_dir }}/files/id_ed25519"
+    # OpenCode（LiteLLM 経由）。モデル一覧は infra/service/llm-proxy/config/config.yaml の model_name と一致させる
+    # 接続先 URL は仮定で未確認。context / output は保守的な仮置き。既定モデルと小型モデルは実測後に差し替える
+    develop_setting_opencode_base_url: "https://llm-proxy.abe365.org/v1"
+    develop_setting_opencode_models:
+      - { id: rtx5070ti-qwen3-coder-30b, name: "Qwen3 Coder 30B", context: 32768, output: 8192 }
+      - { id: rtx5070ti-gemma4-12b, name: "Gemma 4 12B", context: 32768, output: 8192 }
+      - { id: rtx5070ti-qwen3-8b, name: "Qwen3 8B", context: 32768, output: 8192 }
+      - { id: rtx5070ti-deepseek-r1-8b, name: "DeepSeek R1 8B", context: 32768, output: 8192 }
+    develop_setting_opencode_default_model: rtx5070ti-qwen3-coder-30b
+    develop_setting_opencode_small_model: rtx5070ti-qwen3-8b
+    # LiteLLM の専用キー（LITELLM_API_KEY=<キー> の 1 行を Vault 暗号化した、人間が作るファイル。コミットしない平文は置かない）
+    develop_setting_opencode_api_key_src: "{{ playbook_dir }}/templates/home/.config/opencode/litellm.env"
     # .gitconfig の safe.directory（git config --add は使わない）
     develop_setting_git_safe_directories:
       - "/home/{{ user_name }}/git/scripts"

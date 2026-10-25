@@ -48,6 +48,21 @@ make check-branch BRANCH=<develop-setting の作業ブランチ> VAULT_PASS=~/.s
 
 `make lint`（`ansible-playbook --syntax-check` と `ansible-lint`）を push 前に実行してください。CI は `.github/workflows/ansible-lint.yml` です。
 
+### OpenCode（LiteLLM 経由）の設定
+
+`develop.yml` が、OpenCode の接続先（`develop_setting_opencode_base_url`）、モデル一覧、既定モデル、小型モデルを `develop-setting` に渡します。
+接続先 URL（`https://llm-proxy.abe365.org/v1`）は仮定で、未確認です。`context` / `output` と既定モデル・小型モデルは仮置きで、実測のあとに差し替えます。
+
+- モデル一覧（`develop_setting_opencode_models` の `id`）は、`infra/service/llm-proxy/config/config.yaml` の `model_name` と一致させる必要があります。片方だけ変えると、OpenCode から存在しないモデルを呼ぶことになります。
+- LiteLLM の専用キーは、Vault 暗号化したファイル `templates/home/.config/opencode/litellm.env` を人間が作って渡します。実ファイルはコミットしますが、平文のまま置かないでください。
+  中身は `LITELLM_API_KEY=<発行したキー>` の 1 行です。
+
+```bash
+ansible-vault create --vault-password-file ~/.ssh/.ansible_vault_pass templates/home/.config/opencode/litellm.env
+```
+
+- `ansible-vault view` や `git diff` でキーを画面に出さないでください。`git add` の前に、先頭が `$ANSIBLE_VAULT;` で始まっていることを確認します。
+
 ## develop-setting 連携について
 
 - この Playbook は実行時に `{{ user_name }}` のホーム配下へ `develop-setting` を clone / update して参照します。  
